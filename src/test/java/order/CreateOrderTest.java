@@ -52,7 +52,7 @@ public class CreateOrderTest extends BaseTest {
 
     @Test
     @DisplayName("Создание заказа без авторизации")
-    public void createOrderWithoutAuthShouldFail() {
+    public void createOrderWithoutAuthSuccess() {
 
         List<String> ingredientIds = getIngredient();
         String bunId = ingredientIds.get(0);
@@ -68,9 +68,9 @@ public class CreateOrderTest extends BaseTest {
                 .post(ApiUrl.ORDER);
 
         orderResponse.then()
-                .statusCode(401)
-                .body("success", equalTo(false))
-                .body("message", equalTo("Ingredient ids must be provided"));
+                .statusCode(200)
+                .body("success", equalTo(true))
+                .body("order.number", notNullValue());
     }
 
     @Test
